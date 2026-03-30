@@ -141,3 +141,25 @@ Deno.test("constructor throws error for denominator 0", () => {
 Deno.test("parse throws error for denominator 0", () => {
   assertThrows(() => { Fraction.parse("3/0"); }, "denominator cannot be 0");
 });
+
+Deno.test("Kürzen von 10/10", () => {
+  const f = new Fraction(10, 10);
+
+  f.cancel();
+
+  assertEquals(f.toString(), "1/1");
+});
+
+Deno.test("Kürzen von 6/8", () => {
+  const f = new Fraction(6, 8);
+  f.cancel();
+
+  assertEquals(f.toString(), "3/4");
+});
+
+Deno.test("Negativer Nenner", () => {
+  const f = new Fraction(6, -8);
+  f.cancel();
+
+  assertEquals(f.toString(), "-3/4");
+});
